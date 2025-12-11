@@ -112,6 +112,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 
 .logo {
@@ -343,17 +344,26 @@
 
   /* Hamburger Menu Adjustments */
   .menu-toggle {
-    display: block;
-    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
     right: 1rem;
-    top: 4rem;
-    z-index: 1002;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+  }
+
+  .nav-menu.active + .menu-toggle,
+  .menu-toggle.hidden {
+    opacity: 0;
+    pointer-events: none;
   }
 
   .nav-content {
     justify-content: flex-start;
     /* Align logo left */
-    padding-right: 3rem;
+    padding-right: 4rem;
     /* Space for hamburger */
   }
 
@@ -379,10 +389,10 @@
   }
 
   .menu-close {
-    /* display: block; */
+    display: block;
     position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
+    top: 1rem;
+    right: 1rem;
     background: var(--primary-color);
     color: white;
     padding: 0.6rem;

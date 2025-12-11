@@ -60,13 +60,15 @@ const Header = () => {
               <p>Sugar Industry Equipment</p>
             </Link>
 
-            <button
-              className="menu-toggle"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              aria-label="Toggle menu"
-            >
-              {isMenuOpen ? <FaTimes /> : <FaBars />}
-            </button>
+            {!isMenuOpen && (
+              <button
+                className="menu-toggle"
+                onClick={() => setIsMenuOpen(true)}
+                aria-label="Toggle menu"
+              >
+                <FaBars />
+              </button>
+            )}
 
             <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
               <button 
