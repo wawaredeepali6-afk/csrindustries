@@ -47,20 +47,7 @@ const Header = () => {
                 <FaEnvelope /> info@csrindustries.com
               </a>
             </div>
-            <div className="top-bar-right">
-              <span className="certification-badge">ISO 9001:2015 Certified</span>
-              <div className="social-links">
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                  <FaLinkedin />
-                </a>
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-                  <FaFacebook />
-                </a>
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                  <FaInstagram />
-                </a>
-              </div>
-            </div>
+
           </div>
         </div>
       </div>
@@ -82,6 +69,13 @@ const Header = () => {
             </button>
 
             <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
+              <button 
+                className="menu-close" 
+                onClick={() => setIsMenuOpen(false)}
+                aria-label="Close menu"
+              >
+                <FaTimes />
+              </button>
               <li>
                 <Link to="/" onClick={() => setIsMenuOpen(false)}>Home</Link>
               </li>

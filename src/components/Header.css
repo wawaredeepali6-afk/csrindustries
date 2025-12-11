@@ -35,7 +35,7 @@
 .contact-info {
   display: flex;
   gap: 1.5rem;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
 }
 
@@ -161,6 +161,10 @@
   display: flex;
   align-items: center;
   gap: 2rem;
+}
+
+.menu-close {
+  display: none;
 }
 
 .nav-menu li {
@@ -318,16 +322,16 @@
   }
 
   .top-bar-content {
-    flex-direction: column;
+    justify-content: center;
     gap: 0.8rem;
-    text-align: center;
   }
 
   .contact-info {
-    justify-content: center;
-    gap: 1rem;
+    /* justify-content: center; */
+    gap: 0.8rem;
     width: 100%;
     font-size: 0.85rem;
+    flex-wrap: nowrap;
   }
 
   .top-bar-right {
@@ -340,9 +344,10 @@
   /* Hamburger Menu Adjustments */
   .menu-toggle {
     display: block;
-    position: absolute;
+    position: fixed;
     right: 1rem;
-    top: 1.2rem;
+    top: 0.5rem;
+    z-index: 1002;
   }
 
   .nav-content {
@@ -371,6 +376,27 @@
 
   .nav-menu.active {
     right: 0;
+  }
+
+  .menu-close {
+    /* display: block; */
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: var(--primary-color);
+    color: white;
+    padding: 0.6rem;
+    border-radius: var(--radius-md);
+    font-size: 1.3rem;
+    transition: var(--transition-base);
+    cursor: pointer;
+    border: none;
+    z-index: 10;
+  }
+
+  .menu-close:hover {
+    background: var(--primary-light);
+    transform: rotate(90deg) scale(1.1);
   }
 
   .nav-menu li {
@@ -433,9 +459,11 @@
   }
 
   .contact-info {
-    flex-direction: column;
+    flex-direction: row;
     gap: 0.5rem;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
+    flex-wrap: nowrap;
+    overflow-x: auto;
   }
 
   .contact-link {
