@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import {
-  FaCheckCircle, FaAward, FaUsers, FaIndustry, FaRocket,
+  FaAward, FaUsers, FaIndustry, FaRocket,
   FaEye, FaHeart, FaShieldAlt, FaHandshake, FaChartLine,
   FaStar, FaTrophy, FaCertificate
 } from 'react-icons/fa';

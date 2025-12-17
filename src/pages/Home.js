@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import {
   FaCog, FaIndustry, FaTruck, FaTools, FaCheckCircle, FaAward,
-  FaUsers, FaProjectDiagram, FaTasks, FaStar, FaArrowRight,
+  FaUsers, FaProjectDiagram, FaStar, FaArrowRight,
   FaShieldAlt, FaClock, FaHandshake, FaChartLine
 } from 'react-icons/fa';
 import './Home.css';
@@ -75,12 +75,30 @@ const Home = () => {
   ];
 
   const clients = [
-    'Client Logo 1',
-    'Client Logo 2',
-    'Client Logo 3',
-    'Client Logo 4',
-    'Client Logo 5',
-    'Client Logo 6'
+    {
+      name: 'GM Sugar & Energy pvt ltd',
+      logo: '/client_logo_1.jpg'
+    },
+    {
+      name: 'Onkar Sugar',
+      logo: '/client_logo_2.jpg'
+    },
+    {
+      name: 'Lokmangal Agro',
+      logo: '/client_logo_1.jpg'
+    },
+    {
+      name: 'Vitthal Sugar Pandharpur',
+      logo: '/client_logo_2.jpg'
+    },
+    {
+      name: 'Bharti Sugar',
+      logo: '/client_logo_1.jpg'
+    },
+    {
+      name: 'Vitthalrao Shinde Sahakari Sakhar Karkhana Ltd',
+      logo: '/client_logo_2.jpg'
+    }
   ];
 
   return (
@@ -219,8 +237,8 @@ const Home = () => {
             {clients.map((client, index) => (
               <div key={index} className="client-logo">
                 <div className="client-placeholder">
-                  <FaIndustry />
-                  <span>{client}</span>
+                  <img src={client.logo} alt={client.name} />
+                  <span>{client.name}</span>
                 </div>
               </div>
             ))}

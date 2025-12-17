@@ -395,32 +395,57 @@
 
 .clients-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .client-logo {
   background: white;
-  padding: 2rem;
+  padding: 1.5rem 1rem;
   border-radius: var(--radius-lg);
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all var(--transition-base);
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  min-height: 180px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .client-logo:hover {
-  transform: translateY(-10px);
-  box-shadow: var(--shadow-lg);
+  transform: translateY(-8px);
+  box-shadow: 0 8px 24px rgba(0, 102, 204, 0.15);
+  border-color: var(--primary-light);
 }
 
 .client-placeholder {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
+  gap: 1.2rem;
   color: var(--text-lighter);
+  width: 100%;
+  height: 100%;
+  min-height: 150px;
+}
+
+.client-placeholder img {
+  width: 140px;
+  height: 100px;
+  object-fit: contain;
+  transition: all var(--transition-base);
+  border: 1px solid var(--bg-light);
+  border-radius: var(--radius-md);
+  padding: 0.5rem;
+  background: white;
+}
+
+.client-logo:hover .client-placeholder img {
+  transform: scale(1.1);
+  border-color: var(--primary-light);
 }
 
 .client-placeholder svg {
@@ -429,8 +454,11 @@
 }
 
 .client-placeholder span {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 600;
+  text-align: center;
+  line-height: 1.3;
+  color: var(--text-color);
 }
 
 /* CTA Section */
@@ -545,6 +573,11 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .clients-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
   .hero-title {
     font-size: 3rem;
   }
@@ -613,7 +646,17 @@
 
   .clients-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
+    gap: 1.5rem;
+  }
+
+  .client-logo {
+    padding: 1.2rem 0.8rem;
+    min-height: 160px;
+  }
+
+  .client-placeholder img {
+    width: 110px;
+    height: 80px;
   }
 
   .cta-content h2 {

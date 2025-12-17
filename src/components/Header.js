@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FaBars, FaTimes, FaPhone, FaEnvelope, FaLinkedin, FaFacebook, FaInstagram, FaDownload, FaChevronDown } from 'react-icons/fa';
+import { FaBars, FaTimes, FaPhone, FaEnvelope, FaDownload } from 'react-icons/fa';
 import './Header.css';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isProductsOpen, setIsProductsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
 
@@ -24,17 +23,7 @@ const Header = () => {
 
   useEffect(() => {
     setIsMenuOpen(false);
-    setIsProductsOpen(false);
   }, [location]);
-
-  const productCategories = [
-    { name: 'Boiling House Equipment', path: '/products?category=boiling' },
-    { name: 'Material Handling Equipment', path: '/products?category=material' },
-    { name: 'Process & Storage Equipment', path: '/products?category=process' },
-    { name: 'Mill House Equipment', path: '/products?category=mill' },
-    { name: 'Spares & Services', path: '/products?category=spares' },
-    { name: 'Turnkey Projects', path: '/products?category=turnkey' },
-  ];
 
   return (
     <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
