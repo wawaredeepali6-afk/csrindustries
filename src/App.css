@@ -31,16 +31,16 @@ main {
 
 /* Sections */
 .section {
-  padding: var(--spacing-3xl) 0;
+  padding: var(--spacing-2xl) 0;
   position: relative;
 }
 
 .section-sm {
-  padding: var(--spacing-2xl) 0;
+  padding: var(--spacing-xl) 0;
 }
 
 .section-lg {
-  padding: 5rem 0;
+  padding: 4rem 0;
 }
 
 .section-title {
@@ -265,7 +265,7 @@ main {
 /* Responsive */
 @media (max-width: 768px) {
   .section {
-    padding: var(--spacing-2xl) 0;
+    padding: var(--spacing-xl) 0;
   }
 
   .section-title {

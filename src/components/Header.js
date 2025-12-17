@@ -28,10 +28,12 @@ const Header = () => {
   }, [location]);
 
   const productCategories = [
-    { name: 'Boiling House Equipment', path: '/products#boiling' },
-    { name: 'Material Handling', path: '/products#handling' },
-    { name: 'Process Equipment', path: '/products#process' },
-    { name: 'Mill House Equipment', path: '/products#mill' },
+    { name: 'Boiling House Equipment', path: '/products?category=boiling' },
+    { name: 'Material Handling Equipment', path: '/products?category=material' },
+    { name: 'Process & Storage Equipment', path: '/products?category=process' },
+    { name: 'Mill House Equipment', path: '/products?category=mill' },
+    { name: 'Spares & Services', path: '/products?category=spares' },
+    { name: 'Turnkey Projects', path: '/products?category=turnkey' },
   ];
 
   return (
@@ -41,7 +43,7 @@ const Header = () => {
           <div className="top-bar-content">
             <div className="contact-info">
               <a href="tel:+919850123456" className="contact-link">
-                <FaPhone /> +91 9850123456
+                <FaPhone /> +91 9689052887
               </a>
               <a href="mailto:info@csrindustries.com" className="contact-link">
                 <FaEnvelope /> info@csrindustries.com
@@ -56,8 +58,11 @@ const Header = () => {
         <div className="container">
           <div className="nav-content">
             <Link to="/" className="logo">
-              <h1>CSR INDUSTRIES</h1>
-              <p>Sugar Industry Equipment</p>
+              <img src="/logo.png" alt="CSR Industries Logo" className="logo-image" />
+              <div className="logo-text">
+                <h1>CSR INDUSTRIES</h1>
+                <p>Sugar Industry Equipment</p>
+              </div>
             </Link>
 
             {!isMenuOpen && (
@@ -71,42 +76,57 @@ const Header = () => {
             )}
 
             <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
-              <button 
-                className="menu-close" 
+              <button
+                className="menu-close"
                 onClick={() => setIsMenuOpen(false)}
                 aria-label="Close menu"
               >
                 <FaTimes />
               </button>
               <li>
-                <Link to="/" onClick={() => setIsMenuOpen(false)}>Home</Link>
-              </li>
-              <li>
-                <Link to="/about" onClick={() => setIsMenuOpen(false)}>About Us</Link>
-              </li>
-              <li
-                className="dropdown"
-                onMouseEnter={() => setIsProductsOpen(true)}
-                onMouseLeave={() => setIsProductsOpen(false)}
-              >
-                <Link to="/products" className="dropdown-toggle">
-                  Products <FaChevronDown className="dropdown-icon" />
+                <Link
+                  to="/"
+                  className={location.pathname === '/' ? 'active' : ''}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Home
                 </Link>
-                <ul className={`dropdown-menu ${isProductsOpen ? 'show' : ''}`}>
-                  {productCategories.map((category, index) => (
-                    <li key={index}>
-                      <a href={category.path} onClick={() => setIsMenuOpen(false)}>
-                        {category.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
               </li>
               <li>
-                <Link to="/gallery" onClick={() => setIsMenuOpen(false)}>Gallery</Link>
+                <Link
+                  to="/about"
+                  className={location.pathname === '/about' ? 'active' : ''}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  About Us
+                </Link>
               </li>
               <li>
-                <Link to="/contact" onClick={() => setIsMenuOpen(false)}>Contact</Link>
+                <Link
+                  to="/products"
+                  className={location.pathname.startsWith('/products') ? 'active' : ''}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Products
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/gallery"
+                  className={location.pathname === '/gallery' ? 'active' : ''}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Gallery
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/contact"
+                  className={location.pathname === '/contact' ? 'active' : ''}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Contact
+                </Link>
               </li>
               <li className="nav-cta">
                 <Link to="/contact" onClick={handleCatalogueRequest} className="btn-download">

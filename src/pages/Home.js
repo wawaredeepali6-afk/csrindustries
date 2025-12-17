@@ -198,10 +198,12 @@ const Home = () => {
                   </div>
                 ))}
               </div>
-              <Link to="/about" className="btn btn-primary">
-                Learn More About Us <FaArrowRight />
-              </Link>
             </div>
+          </div>
+          <div className="about-cta">
+            <Link to="/about" className="btn btn-primary btn-large">
+              Learn More About Us <FaArrowRight />
+            </Link>
           </div>
         </div>
       </section>

@@ -1,70 +1,61 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { FaTimes, FaSearchPlus, FaImages } from 'react-icons/fa';
+import React, { useState, useEffect } from 'react';
+import { FaTimes, FaImages } from 'react-icons/fa';
+
+import { database } from '../firebase';
+import { ref, onValue } from 'firebase/database';
 import './Gallery.css';
 
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState(null);
-  const [filter, setFilter] = useState('all');
-  const observerRef = useRef(null);
+  const [galleryImages, setGalleryImages] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  // Fetch gallery images from Firebase
   useEffect(() => {
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('revealed');
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
+    const galleryRef = ref(database, 'gallery');
 
-    const elements = document.querySelectorAll('.scroll-reveal');
-    elements.forEach((el) => observerRef.current.observe(el));
-
-    return () => {
-      if (observerRef.current) {
-        observerRef.current.disconnect();
+    const unsubscribe = onValue(galleryRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        const imagesArray = Object.keys(data).map(key => ({
+          id: key,
+          ...data[key]
+        }));
+        // Sort by upload date (newest first)
+        imagesArray.sort((a, b) => b.uploadedAt - a.uploadedAt);
+        setGalleryImages(imagesArray);
       }
-    };
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
   }, []);
 
-  const galleryImages = [
-    { id: 1, title: 'Crystallizer Installation', category: 'projects', url: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600&h=400&fit=crop' },
-    { id: 2, title: 'Evaporator Body', category: 'products', url: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&h=400&fit=crop' },
-    { id: 3, title: 'Bagasse Handling System', category: 'projects', url: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=600&h=400&fit=crop' },
-    { id: 4, title: 'Storage Tank Fabrication', category: 'fabrication', url: 'https://images.unsplash.com/photo-1581092335397-9583eb92d232?w=600&h=400&fit=crop' },
-    { id: 5, title: 'Mill Rollers', category: 'products', url: 'https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?w=600&h=400&fit=crop' },
-    { id: 6, title: 'Conveyor System', category: 'projects', url: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=600&h=400&fit=crop' },
-    { id: 7, title: 'Pressure Vessel', category: 'fabrication', url: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600&h=400&fit=crop' },
-    { id: 8, title: 'Juice Heater Assembly', category: 'products', url: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600&h=400&fit=crop' },
-    { id: 9, title: 'Complete Plant Setup', category: 'projects', url: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=600&h=400&fit=crop' },
-    { id: 10, title: 'Heavy Fabrication Work', category: 'fabrication', url: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&h=400&fit=crop' },
-    { id: 11, title: 'Ash Handling System', category: 'projects', url: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600&h=400&fit=crop' },
-    { id: 12, title: 'Custom Equipment', category: 'products', url: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=600&h=400&fit=crop' }
-  ];
 
-  const categories = [
-    { id: 'all', name: 'All' },
-    { id: 'projects', name: 'Projects' },
-    { id: 'products', name: 'Products' },
-    { id: 'fabrication', name: 'Fabrication' }
-  ];
 
-  const filteredImages = filter === 'all'
-    ? galleryImages
-    : galleryImages.filter(img => img.category === filter);
+  if (loading) {
+    return (
+      <div className="gallery-page">
+        <div className="loading-container">
+          <div className="loading-spinner"></div>
+          <p>Loading gallery...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="gallery-page">
       {/* Hero Section */}
       <section className="gallery-hero">
-        <div className="gallery-hero-background"></div>
+
         <div className="container">
           <div className="gallery-hero-content animate-fadeInUp">
-            <FaImages className="hero-icon" />
             <h1>Project Gallery</h1>
-            <p className="hero-subtitle">Our Work in Action - Excellence Delivered</p>
+            <p className="hero-subtitle">Our Manufacturing Excellence & Completed Projects</p>
+            <div className="hero-badge">
+              <FaImages /> Visual Tour
+            </div>
           </div>
         </div>
         <div className="hero-wave">
@@ -74,42 +65,38 @@ const Gallery = () => {
         </div>
       </section>
 
-      {/* Gallery Section */}
-      <section className="section gallery-main">
-        <div className="container">
-          {/* Category Filter */}
-          <div className="gallery-filter scroll-reveal">
-            {categories.map(cat => (
-              <button
-                key={cat.id}
-                className={`gallery-filter-btn ${filter === cat.id ? 'active' : ''}`}
-                onClick={() => setFilter(cat.id)}
-              >
-                {cat.name}
-              </button>
-            ))}
+      {galleryImages.length === 0 ? (
+        <section className="gallery-section">
+          <div className="container">
+            <div className="empty-gallery">
+              <FaImages className="empty-icon" />
+              <h2>No Images Yet</h2>
+              <p>Gallery is empty. Upload images from admin dashboard.</p>
+            </div>
           </div>
-
-          {/* Gallery Grid */}
+        </section>
+      ) : (
+        <section className="gallery-section">
           <div className="gallery-grid">
-            {filteredImages.map((image, index) => (
+            {galleryImages.map((image, index) => (
               <div
                 key={image.id}
-                className="gallery-item scroll-reveal"
-                style={{ animationDelay: `${index * 0.05}s` }}
+                className="gallery-card"
                 onClick={() => setSelectedImage(image)}
+                style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <img src={image.url} alt={image.title} />
-                <div className="gallery-overlay">
-                  <FaSearchPlus className="zoom-icon" />
+                <div className="gallery-card-image">
+                  <img src={image.imageUrl} alt={image.title} />
+                </div>
+                <div className="gallery-card-details">
                   <h3>{image.title}</h3>
-                  <p className="category-badge">{image.category}</p>
+                  <p>{image.category}</p>
                 </div>
               </div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Lightbox */}
       {selectedImage && (
@@ -118,7 +105,7 @@ const Gallery = () => {
             <FaTimes />
           </button>
           <div className="lightbox-content" onClick={e => e.stopPropagation()}>
-            <img src={selectedImage.url} alt={selectedImage.title} />
+            <img src={selectedImage.imageUrl} alt={selectedImage.title} />
             <div className="lightbox-info">
               <h3>{selectedImage.title}</h3>
               <p>{selectedImage.category}</p>
@@ -126,33 +113,6 @@ const Gallery = () => {
           </div>
         </div>
       )}
-
-      {/* Notable Projects */}
-      <section className="section projects-section">
-        <div className="container">
-          <h2 className="section-title scroll-reveal">Notable Projects</h2>
-          <p className="section-subtitle scroll-reveal">
-            Delivering excellence across India
-          </p>
-          <div className="projects-list">
-            <div className="project-item scroll-reveal">
-              <div className="project-number">01</div>
-              <h3>Sugar Plant Modernization - Maharashtra</h3>
-              <p>Complete modernization of boiling house equipment including crystallizers, evaporators, and juice heaters for a 5000 TCD sugar plant.</p>
-            </div>
-            <div className="project-item scroll-reveal">
-              <div className="project-number">02</div>
-              <h3>Material Handling System - Karnataka</h3>
-              <p>Installation of comprehensive bagasse and ash handling systems with automated controls for improved efficiency.</p>
-            </div>
-            <div className="project-item scroll-reveal">
-              <div className="project-number">03</div>
-              <h3>Turnkey Project - Gujarat</h3>
-              <p>End-to-end solution for a new sugar plant including design, manufacturing, supply, and commissioning of all major equipment.</p>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
   );
 };

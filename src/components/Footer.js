@@ -91,7 +91,7 @@ const Footer = () => {
                 </li>
                 <li>
                   <FaPhone />
-                  <a href="tel:+919850123456">+91 9850123456</a>
+                  <a href="tel:+919689052887">+91 9689052887</a>
                 </li>
                 <li>
                   <FaEnvelope />
