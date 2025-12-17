@@ -58,7 +58,7 @@ const Header = () => {
         <div className="container">
           <div className="nav-content">
             <Link to="/" className="logo">
-              <img src="/csr_logo.jpg" alt="CSR Industries Logo" className="logo-image" />
+              <img src="/logo2.png" alt="CSR Industries Logo" className="logo-image" />
               <div className="logo-text">
                 <h1>CSR INDUSTRIES</h1>
                 <p>Sugar Industry Equipment</p>
