@@ -664,20 +664,26 @@
 
   .clients-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+    gap: 1rem;
   }
 
   .client-logo {
-    padding: 1.5rem 1rem;
-    min-height: 200px;
+    padding: 1.2rem;
+    min-height: 160px;
   }
 
   .client-img-container {
-    height: 100px;
+    height: 80px;
   }
 
   .client-placeholder img {
-    max-width: 140px;
+    max-width: 100%;
+    max-height: 70px;
+  }
+
+  .client-placeholder span {
+    font-size: 0.85rem;
+    margin-top: 0.6rem;
   }
 
   .cta-content h2 {
@@ -752,7 +758,31 @@
   .about-preview,
   .clients-section,
   .cta-section {
-    padding: 2.5rem 0;
-    /* consistent padding */
+    padding: 3rem 0;
+  }
+
+  .clients-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+  }
+
+  .client-logo {
+    padding: 1rem 0.5rem;
+    min-height: 130px;
+  }
+
+  .client-img-container {
+    height: 60px;
+  }
+
+  .client-placeholder img {
+    max-width: 100%;
+    max-height: 55px;
+  }
+
+  .client-placeholder span {
+    font-size: 0.75rem;
+    margin-top: 0.5rem;
+    font-weight: 600;
   }
 }
