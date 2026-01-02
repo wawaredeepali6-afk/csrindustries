@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { FaDownload, FaArrowRight, FaCheckCircle, FaCog, FaIndustry, FaTruck, FaTools } from 'react-icons/fa';
+import { FaArrowRight, FaCheckCircle, FaCog, FaIndustry, FaTruck, FaTools } from 'react-icons/fa';
 import { database } from '../firebase';
 import { ref, onValue } from 'firebase/database';
 import './Products.css';
@@ -32,7 +32,7 @@ const Products = () => {
   // Helper function to normalize category names from admin dashboard
   const normalizeCategoryName = (category) => {
     if (!category) return 'other';
-    
+
     const categoryMap = {
       'boiling house equipment': 'boiling',
       'boiling house': 'boiling',
@@ -52,7 +52,7 @@ const Products = () => {
       'turnkey erection work': 'turnkey',
       'turnkey': 'turnkey'
     };
-    
+
     const normalized = category.toLowerCase().trim();
     return categoryMap[normalized] || normalized;
   };
@@ -71,7 +71,7 @@ const Products = () => {
   // Fetch products from Firebase
   useEffect(() => {
     const productsRef = ref(database, 'products');
-    
+
     const unsubscribe = onValue(productsRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
@@ -460,42 +460,42 @@ const Products = () => {
           ) : (
             <div className="products-grid">
               {filteredProducts.map((product, index) => (
-              <div
-                key={index}
-                className="product-card scroll-reveal"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="product-image">
-                  <img src={product.image} alt={product.name} />
+                <div
+                  key={index}
+                  className="product-card scroll-reveal"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <div className="product-image">
+                    <img src={product.image} alt={product.name} />
+                  </div>
+                  <div className="product-content">
+                    <h3>{product.name}</h3>
+                    {product.specs && product.specs.length > 0 && (
+                      <ul className="specs-list">
+                        {product.specs.slice(0, 3).map((spec, i) => (
+                          <li key={i}>
+                            <FaCheckCircle /> {spec}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    {product.features && product.features.length > 0 && !product.specs && (
+                      <ul className="specs-list">
+                        {product.features.slice(0, 3).map((feature, i) => (
+                          <li key={i}>
+                            <FaCheckCircle /> {feature}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    <Link
+                      to={`/products/${product.id || generateId(product.name)}`}
+                      className="btn-view-details"
+                    >
+                      View Details <FaArrowRight />
+                    </Link>
+                  </div>
                 </div>
-                <div className="product-content">
-                  <h3>{product.name}</h3>
-                  {product.specs && product.specs.length > 0 && (
-                    <ul className="specs-list">
-                      {product.specs.slice(0, 3).map((spec, i) => (
-                        <li key={i}>
-                          <FaCheckCircle /> {spec}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                  {product.features && product.features.length > 0 && !product.specs && (
-                    <ul className="specs-list">
-                      {product.features.slice(0, 3).map((feature, i) => (
-                        <li key={i}>
-                          <FaCheckCircle /> {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                  <Link 
-                    to={`/products/${product.id || generateId(product.name)}`} 
-                    className="btn-view-details"
-                  >
-                    View Details <FaArrowRight />
-                  </Link>
-                </div>
-              </div>
               ))}
             </div>
           )}

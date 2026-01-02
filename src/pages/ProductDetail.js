@@ -1,5 +1,5 @@
 ﻿import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { FaArrowLeft, FaCheckCircle, FaDownload, FaIndustry, FaCog } from 'react-icons/fa';
 import { database } from '../firebase';
 import { ref, onValue } from 'firebase/database';
@@ -119,8 +119,8 @@ const ProductDetail = () => {
     return () => unsubscribe();
   }, [id]);
 
-  // Static products array (backup)
-  const allProducts = [
+  // Static products array (backup) - commented out, using Firebase data
+  /* const allProducts = [
     // Boiling House Equipment
     {
       id: 'crystallizer',
@@ -479,7 +479,8 @@ const ProductDetail = () => {
       specifications: ['Scope: Design to Commissioning', 'Team: Experienced Engineers', 'Timeline: Project-based', 'Support: Comprehensive'],
       applications: ['New plant setup', 'Plant expansion', 'Modernization projects', 'Complete installations']
     }
-  ];
+  ]; */
+
 
   // Scroll Animation Observer
   useEffect(() => {
@@ -679,9 +680,9 @@ const ProductDetail = () => {
 
               </div>
             </div>
-          </div>
-        </div>
-      </section>
+          </div >
+        </div >
+      </section >
 
       <section className="product-cta-section">
         <div className="container">
@@ -693,7 +694,7 @@ const ProductDetail = () => {
           </div>
         </div>
       </section>
-    </div>
+    </div >
   );
 };
 

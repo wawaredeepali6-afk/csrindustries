@@ -77,23 +77,23 @@ const Home = () => {
   const clients = [
     {
       name: 'GM Sugar & Energy pvt ltd',
-      logo: '/client_logo_1.jpg'
+      logo: '/gm.png'
     },
     {
       name: 'Onkar Sugar',
-      logo: '/client_logo_2.jpg'
+      logo: '/onkar.jfif'
     },
     {
       name: 'Lokmangal Agro',
-      logo: '/client_logo_1.jpg'
+      logo: '/lok.png'
     },
     {
       name: 'Vitthal Sugar Pandharpur',
-      logo: '/client_logo_2.jpg'
+      logo: '/pandharpur.jfif'
     },
     {
       name: 'Bharti Sugar',
-      logo: '/client_logo_1.jpg'
+      logo: '/bharti.jfif'
     },
     {
       name: 'Vitthalrao Shinde Sahakari Sakhar Karkhana Ltd',
@@ -237,7 +237,9 @@ const Home = () => {
             {clients.map((client, index) => (
               <div key={index} className="client-logo">
                 <div className="client-placeholder">
-                  <img src={client.logo} alt={client.name} />
+                  <div className="client-img-container">
+                    <img src={client.logo} alt={client.name} />
+                  </div>
                   <span>{client.name}</span>
                 </div>
               </div>
